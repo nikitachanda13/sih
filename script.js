@@ -78,7 +78,7 @@ function animateProgress(duration=4){
     }
     return t1;
 }
- const  t1  = gsap.timeline({delay:0.5}) ;
+ const  t1  =  gsap.timeline({delay:0.5}),
 t1.to(splits.logoChars.char,{
     x:"0%",
     stagger: 0.05,
@@ -91,19 +91,19 @@ t1.to(splits.logoChars.char,{
         stagger: 0.1,
         duration:1,
         ease:"power4.inOut",
-    }
+    },
     "0.25"
 )
 .add(animateProgress(), "<")
 .set(".preloader-progress",{ backgroundColor: "var(--base-300)"})
-.to{
+.to(
     splits.logoChars.chars,
     {
         x:"-100%",
         stagger:0.05,
         duration:1,
         ease:"power4.inOut",
-    }
+    },
     "-=0.5"
 )
 .to(
@@ -161,8 +161,65 @@ t1.to(splits.logoChars.char,{
         },
         "-=1.5"
     )
+.to(
+    ".preloader-mask",
+    {
+        scale:5,
+        duration:2.5,
+        ease: "power3.out",
+    },
+    "<"
+)
+.to(
+    ".hero-img",
+    {
+        scale:1,
+        duration:1.5,
+        ease:"power3.out",
+    },
+"<"
+)
+.to(splits.headerChars.chars,
+    {
+        y:0,
+        stagger:0.05,
+        duration:1,
+        ease:"power4.out",
+        delay=-2,
+    }
+)
+.to(
+    [splits.heroFooterH3.lines,splits.heroFooterP.lines],
+    {
+          y:0,
+        stagger:0.01,
+        duration:1,
+        ease:"power4.out",
+    },
+    "-=1.5"
 
-}
+)
+".btn",
+{
+    scale:1,
+    duration1,
+    ease:"power4.out",
+    onStart () => {
+        t1.to(".btn-icon",{
+            clipPath:"circle(100% at 50% 50%)",
+            duration:1,
+            ease:"power2.out",
+            delay:-1.25,
+        })
+        .to(splits.btnLabels.lines,{
+            y:0,
+            duration:1,
+            ease:"power4.out",
+            delay: -1.25,
+        });
+    },
 
-
+},
+"<"
+);
 });
