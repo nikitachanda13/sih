@@ -100,7 +100,7 @@ img{
     color:var(--base-100);
     will-change: transform;
 }
-btn-icon{
+.btn-icon{
     width: 2.5rem;
     height: 2.5rem;
     background-color: var(--base-100);
