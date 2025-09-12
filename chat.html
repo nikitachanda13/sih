@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FloatChat - AI Chat</title>
+    <link rel="stylesheet" href="style.css"> <!-- Reusing styles from index.html -->
+    <link rel="stylesheet" href="chat.css"> <!-- Specific styles for the chat interface -->
+</head>
+<body>
+    <!-- Container for the background video -->
+    <div class="chat-background">
+        <video src="hero-img.mp4" autoplay loop muted></video>
+    </div>
+
+    <div class="main-layout">
+        <!-- Sidebar for chat history -->
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <a href="index.html" class="home-link">
+                    <ion-icon name="planet-outline"></ion-icon>
+                    <span>FloatChat</span>
+                </a>
+                <button class="new-chat-btn">
+                    <ion-icon name="add-outline"></ion-icon>
+                </button>
+            </div>
+            <div class="chat-history">
+                <p class="history-title">Recent</p>
+                <ul>
+                    <!-- Example chat history item -->
+                    <li class="history-item active">
+                        <a href="#">ARGO float data in the Indian Ocean</a>
+                        <button class="delete-chat-btn"><ion-icon name="trash-outline"></ion-icon></button>
+                    </li>
+                    <li class="history-item">
+                        <a href="#">Temperature vs. Salinity</a>
+                        <button class="delete-chat-btn"><ion-icon name="trash-outline"></ion-icon></button>
+                    </li>
+                </ul>
+            </div>
+            <!-- User profile and settings footer -->
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <div class="user-avatar">R</div>
+                    <span class="user-name">Ryosh</span>
+                </div>
+                <a href="index.html" class="logout-btn">
+                    <ion-icon name="log-out-outline"></ion-icon>
+                    <span>Logout</span>
+                </a>
+            </div>
+        </nav>
+
+        <!-- Main chat container -->
+        <div class="chat-container">
+            <div class="chat-messages" id="chat-messages">
+                <!-- Example message -->
+                <div class="message bot-message">
+                    <p>Hello! I am FloatChat. How can I help you explore ARGO oceanographic data today?</p>
+                </div>
+            </div>
+            <div class="chat-input-area">
+                <form id="chat-form" class="chat-form">
+                    <textarea id="message-input" placeholder="Ask me about ARGO data..." required></textarea>
+                    <button type="submit" class="send-btn">
+                        <ion-icon name="arrow-up-outline"></ion-icon>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <!-- You can add a specific script for chat functionality later -->
+    <!-- <script src="chat.js"></script> -->
+</body>
+</html>

@@ -151,7 +151,6 @@ function animateProgress(duration=4){
             "<"
         );
     } else {
-        // On other pages, just scale up the hero image
         gsap.set(".hero-img", { scale: 1 });
     }
 
