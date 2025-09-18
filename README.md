@@ -1,53 +1,40 @@
+# ARGO Oceanographic Data Analysis Platform
 
-# 🌊 FloatChat
-AI-Powered Conversational Interface for ARGO Ocean Data Discovery and Visualization
-FloatChat is an interactive platform that combines ARGO float oceanographic data, machine learning models, and a conversational AI assistant into a single dashboard. It allows researchers, students, and ocean enthusiasts to explore, analyze, and visualize global ocean data in an intuitive way.
+An AI-powered oceanographic data analysis platform for ARGO float data with ultra-fast Groq LLM integration and interactive visualizations.
 
-# ✨ Features
-📊 Interactive Dashboard (Streamlit)
+## Features
 
-Explore ARGO floats by region, depth, and time
+- **NetCDF Data Ingestion**: Process ARGO float NetCDF files and convert to structured formats
+- **Dual Database System**: PostgreSQL for relational data, FAISS for vector embeddings
+- **AI-Powered Queries**: Natural language processing using Groq API with RAG pipeline
+- **Interactive Visualizations**: Geospatial maps, depth-time plots, and profile comparisons
+- **Chat Interface**: Ask questions about oceanographic data in natural language
+- **Real-time Data Explorer**: Browse and filter ARGO float measurements
 
-Visualize T–S (Temperature–Salinity) diagrams, vertical profiles, and time series
+## Technology Stack
 
-View float trajectories on global maps
+- **Frontend**: Streamlit
+- **AI/ML**: Groq API, LangChain, FAISS
+- **Database**: PostgreSQL, Vector Database (FAISS)
+- **Data Processing**: xarray, pandas, netCDF4
+- **Visualization**: Plotly, Folium
+- **Data Format**: NetCDF, Parquet
+
+## Prerequisites
+
+- Python 3.8+
+- PostgreSQL database
+- Groq API key
+
+## Installation
+
+1. Clone or download this repository
+2. Install required packages:
+   ```bash
+   pip install streamlit groq langchain-groq  xarray pandas plotly numpy chromadb netcdf4
+   ```
 
 
-🤖 Machine Learning Insights
 
-Clustering: Group water masses using T–S profiles
-
-Forecasting: Predict temperature/salinity at different depths
-
-Anomaly Detection: Identify unusual profiles (possible El Niño signatures, etc.)
-
-💬 AI-Powered Conversational Query
-Ask natural-language questions like:
-
-“What was the average salinity at 1000m depth in the Pacific Ocean last year?”
-
-Get results as text + charts
-
-📥 Export Options
-
-Download processed datasets (CSV/NetCDF)
-
-Save plots as PNG for reports
-
-# 🛠️ Tech Stack
-
-Frontend: Streamlit
-
-Data Handling: xarray, pandas, netCDF4
-
-Visualization: matplotlib, seaborn, plotly, folium
-Machine Learning: scikit-learn, numpy, (optionally pytorch/tensorflow for deep learning)
-
-Conversational AI: LLM-powered backend for natural language queries
-
-# 🔮 Future Enhancements
-🌍 Integrate real-time ARGO API data feeds
-🧠 Deep learning models for improved forecasting
-📡 Live satellite + ARGO data fusion
-🌐 Deploy dashboard on cloud (Heroku/Streamlit Cloud)
-
+# Optional: Session Secret for Streamlit
+SESSION_SECRET=your_session_secret
