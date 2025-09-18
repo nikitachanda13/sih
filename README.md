@@ -13,17 +13,16 @@ An AI-powered oceanographic data analysis platform for ARGO float data with ultr
 
 ## Technology Stack
 
-- **Frontend**: Streamlit
-- **AI/ML**: Groq API, LangChain, FAISS
+- **Frontend**: HTML,CSS,JAVASCRIPT
+- **AI/ML**: Groq API, LangChain
 - **Database**: PostgreSQL, Vector Database (FAISS)
 - **Data Processing**: xarray, pandas, netCDF4
-- **Visualization**: Plotly, Folium
+- **Visualization**: Plotly
 - **Data Format**: NetCDF, Parquet
 
 ## Prerequisites
 
 - Python 3.8+
-- PostgreSQL database
 - Groq API key
 
 ## Installation
@@ -36,5 +35,4 @@ An AI-powered oceanographic data analysis platform for ARGO float data with ultr
 
 
 
-# Optional: Session Secret for Streamlit
-SESSION_SECRET=your_session_secret
+
