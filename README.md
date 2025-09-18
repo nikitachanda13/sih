@@ -1,4 +1,4 @@
-# ARGO Oceanographic Data Analysis Platform
+# FloatChat :  AI-Powered Conversational Interface for ARGO Ocean Data Discovery and Visualization
 
 An AI-powered oceanographic data analysis platform for ARGO float data with ultra-fast Groq LLM integration and interactive visualizations.
 
