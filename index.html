@@ -3,82 +3,1905 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Landing Page</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Floatchat - AI-Powered Ocean Data Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #0d47a1;
+            --secondary: #00bcd4;
+            --accent: #ff4081;
+            --light: #ffffff;
+            --light-gray: #f5f7fa;
+            --text: #202124;
+            --text-secondary: #5f6368;
+            --border: #dadce0;
+            --success: #238636;
+            --ocean-deep: #006994;
+            --ocean-medium: #0088cc;
+            --ocean-light: #00bcd4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Enhanced Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            padding: 10px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            color: var(--secondary);
+            font-size: 24px;
+            transition: transform 0.3s ease;
+        }
+
+        .nav-logo:hover .logo-icon {
+            transform: rotate(15deg);
+        }
+
+        .nav-logo h2 {
+            font-weight: 700;
+            font-size: 24px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: var(--text);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-size: 14px;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: var(--text);
+            border: 1px solid var(--border);
+        }
+
+        .btn-login:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+
+        .btn-signup {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-signup:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26, 115, 232, 0.3);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Enhanced Hero Section */
+        .hero {
+            padding: 160px 0 100px;
+            background: linear-gradient(135deg, var(--light) 0%, var(--light-gray) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 L0,100 Z" fill="none" stroke="rgba(0, 188, 212, 0.05)" stroke-width="2"/></svg>');
+            background-size: 20px 20px;
+            pointer-events: none;
+        }
+
+        .hero-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(0, 188, 212, 0.1);
+            color: var(--secondary);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 20px;
+            border: 1px solid rgba(0, 188, 212, 0.3);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 188, 212, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(0, 188, 212, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 188, 212, 0); }
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .title-line {
+            display: block;
+        }
+
+        .ai-text {
+            position: relative;
+            display: inline-block;
+        }
+
+        .title-highlight {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .hero-description {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 30px;
+            max-width: 90%;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(26, 115, 232, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            padding: 12px 30px;
+            border-radius: 6px;
+            font-weight: 600;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 0, 0, 0.05);
+            transform: translateY(-2px);
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-container {
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .video-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26, 115, 232, 0.05) 0%, rgba(0, 188, 212, 0.05) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-secondary);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .video-placeholder::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 L0,100 Z" fill="none" stroke="rgba(0,0,0,0.05)" stroke-width="2"/></svg>');
+            background-size: 20px 20px;
+        }
+
+        .video-icon {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--secondary);
+            opacity: 0.7;
+        }
+
+        .video-text {
+            font-size: 1.2rem;
+            text-align: center;
+            max-width: 80%;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+
+        .play-button:hover {
+            background: rgba(0, 0, 0, 0.2);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .play-button i {
+            color: var(--text);
+            font-size: 2rem;
+            margin-left: 5px;
+        }
+
+        /* Enhanced Jellyfish Container */
+        .jellyfish-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .jellyfish {
+            position: absolute;
+            width: 50px;
+            height: 70px;
+            opacity: 1;
+            z-index: 1000;
+            filter: drop-shadow(0 0 6px rgba(138, 43, 226, 0.3));
+        }
+
+        .jellyfish-body {
+            animation: pulse 3s infinite ease-in-out;
+            transform-origin: center;
+        }
+
+        .jellyfish-tentacle {
+            animation: wave 2s infinite ease-in-out;
+            transform-origin: top;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-5px) scale(1.03); }
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: translateX(0px); }
+            25% { transform: translateX(-1px); }
+            75% { transform: translateX(1px); }
+        }
+
+        /* Enhanced Sections */
+        section {
+            padding: 100px 0;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 60px;
+            position: relative;
+            color: var(--text);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        /* Enhanced Features Section */
+        .features {
+            background: var(--light);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .feature-card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--secondary), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: scale(1.1);
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: #202124;
+        }
+
+        .feature-card p {
+            color: #5f6368;
+            opacity: 0.9;
+        }
+
+        /* Enhanced About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .about-visual {
+            background: linear-gradient(135deg, rgba(26, 115, 232, 0.05) 0%, rgba(0, 188, 212, 0.05) 100%);
+            border-radius: 12px;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .ocean-data-video {
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+
+        .ocean-wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(transparent, rgba(0, 188, 212, 0.1));
+            border-radius: 50% 50% 0 0;
+        }
+
+        /* Enhanced Services Section */
+        .services {
+            background: var(--light);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26, 115, 232, 0.03) 0%, rgba(0, 188, 212, 0.03) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .service-card:hover::before {
+            opacity: 1;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border-color: var(--secondary);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(26, 115, 232, 0.1);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 20px;
+            color: var(--primary);
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card:hover .service-icon {
+            background: rgba(26, 115, 232, 0.2);
+            transform: scale(1.1);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            font-weight: 600;
+            color: #202124;
+            position: relative;
+            z-index: 1;
+        }
+
+        .service-card p {
+            color: #5f6368;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Enhanced Contact Section */
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+        }
+
+        .contact-info h3 {
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .contact-details {
+            margin-bottom: 30px;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+
+        .contact-detail:hover {
+            color: var(--text);
+        }
+
+        .contact-detail i {
+            margin-right: 10px;
+            color: var(--secondary);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-detail:hover i {
+            transform: scale(1.2);
+        }
+
+        .contact-form {
+            background: var(--light-gray);
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid var(--border);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-form:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            background: var(--light);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text);
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Enhanced Footer */
+        .footer {
+            background: var(--light-gray);
+            border-top: 1px solid var(--border);
+            padding: 60px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            margin-bottom: 20px;
+        }
+
+        .footer-about p {
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: var(--light);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-section h4 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .footer-links a::before {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--text);
+        }
+
+        .footer-links a:hover::before {
+            width: 100%;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid var(--border);
+            color: var(--text-secondary);
+        }
+
+        /* New Elements */
+        .ocean-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .ocean-wave-bg {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(transparent, rgba(0, 188, 212, 0.05));
+            border-radius: 50% 50% 0 0;
+        }
+
+        .floating-bubbles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        .bubble {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.7);
+            opacity: 0.3;
+            animation: float 15s infinite ease-in-out;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% {
+                opacity: 0.3;
+            }
+            90% {
+                opacity: 0.3;
+            }
+            100% {
+                transform: translateY(-100px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        /* Stats Section */
+        .stats {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stats-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.2;
+        }
+
+        .graph-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .stats-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+        }
+
+        .stat-item {
+            padding: 20px;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* Team Section */
+        .team {
+            background: var(--light-gray);
+            padding: 100px 0;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+        }
+        
+        .team-member {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .member-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 30px auto 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+        
+        .member-info {
+            padding: 0 20px 30px;
+        }
+        
+        .member-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text);
+        }
+        
+        .member-role {
+            color: var(--secondary);
+            font-weight: 500;
+            margin-bottom: 15px;
+        }
+        
+        .member-bio {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .social-link {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: var(--light-gray);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-secondary);
+            transition: all 0.3s ease;
+        }
+        
+        .social-link:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-container,
+            .about-content,
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-title {
+                font-size: 2.8rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .hero-title {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-buttons {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                text-align: center;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="preloader-progress">
-        <div class="preloader-progress-bar"></div>
-        <div class="preloader-logo"><h1>FloatChat</h1></div>
-    </div>
-
-    <div class="preloader-mask"></div>
-
-    <div class="preloader-content">
-        <div class="preloader-footer">
-            <p>End-to-End system that helps scientists, students, and policymakers explore ARGO oceanographic data using natural language and interactive dashboards.</p>
-        </div>
-    </div>
-
-    <div class="container">
-        <section class="hero">
-            <div class="hero-inner">
-                <div class="hero-img">
-                    <video src="hero-img.mp4" autoplay loop muted></video>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <div class="nav-logo">
+                <div class="logo-icon">
+                    <i class="fas fa-water"></i>
                 </div>
-                
-                <div class="hero-content">
-                    <div class="header">
-                        <h1>FloatChat</h1>
-                    </div>
+                <h2>Floatchat</h2>
+            </div>
+            <div class="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#features" class="nav-link">Features</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <div class="nav-buttons">
+                <a href="chat.html" class="btn btn-login">Login</a>
+                <a href="auth.html" class="btn btn-signup">Sign Up</a>
+            </div>
+            <div class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
 
-                    <div class="contact-btn-container">
-                        <a href="chat.html" style="text-decoration: none;">
-                            <div class="btn-container">
-                                <div class="btn">
-                                    <div class="btn-label">
-                                        <span>Get Started</span>
-                                    </div>
-                                    <div class="btn-icon">
-                                        <ion-icon name="arrow-forward-sharp"></ion-icon>
-                                    </div>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="menu-container">
-                        <div class="menu-btn">
-                            <div class="btn">
-                                <div class="btn-label">
-                                    <span>Main</span>
-                                </div>
-                                <div class="btn-icon">
-                                    <ion-icon name="menu-sharp"></ion-icon>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="drawer-menu">
-                            <ul class="drawer-nav">
-                                <li><a href="about.html">About</a></li>
-                                <li><a href="#">Features</a></li>
-                                <li><a href="#">FAQs</a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="hero-footer">
-                        <h3>AI-Powered Conversational Interface for ARGO Ocean Data Discovery and Visualization.</h3>
-
-                        <p>End-to-End system that helps scientists, students, and policymakers explore ARGO oceanographic data using natural language and interactive dashboards.</p>
-                    </div>
-
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <span>AI-Powered Ocean Data Platform</span>
+                </div>
+                <h1 class="hero-title">
+                    <span class="title-line">FloatChat : <span class="ai-text" id="aiTarget">AI</span>-Powered</span>
+                    <span class="title-line">Conversational Interface</span>
+                    <span class="title-highlight">for ARGO Ocean Data</span>
+                </h1>
+                <p class="hero-description">
+                    An AI-powered oceanographic data analysis platform for ARGO float data with ultra-fast Groq LLM integration and interactive visualizations.
+                </p>
+                <div class="hero-buttons">
+                    <a href="auth.html" class="btn-primary">Get Started</a>
+                    <a href="#features" class="btn-secondary">View Demo</a>
                 </div>
             </div>
-        </section>
-    </div>
-    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
-    <script type="module" src="script.js"></script>
+            <div class="hero-visual">
+                <div class="video-container">
+                    <video controls autoplay muted loop style="width: 100%; height: 100%; border-radius: 12px;">
+                        <source src="C:\Users\subha\Desktop\hero-img.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Jellyfish Container -->
+        <div class="jellyfish-container">
+            <div class="jellyfish" id="jellyfish">
+                <svg viewBox="0 0 50 70">
+                    <!-- Realistic Jellyfish Design -->
+                    <defs>
+                        <linearGradient id="bellGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#8a2be2" />
+                            <stop offset="50%" stop-color="#9370db" />
+                            <stop offset="100%" stop-color="#6a5acd" />
+                        </linearGradient>
+                        <linearGradient id="tentacleGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="#9370db" />
+                            <stop offset="100%" stop-color="#8a2be2" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- Jellyfish Bell - Irregular, organic shape -->
+                    <g class="jellyfish-body">
+                        <!-- Main bell with wavy, irregular edge -->
+                        <path d="M25,15 
+                                 C30,12 35,15 38,20 
+                                 C40,25 38,30 35,32 
+                                 C32,35 28,36 25,35 
+                                 C22,36 18,35 15,32 
+                                 C12,30 10,25 12,20 
+                                 C15,15 20,12 25,15 Z" 
+                              fill="url(#bellGradient)" 
+                              stroke="#6a5acd" 
+                              stroke-width="0.8"
+                              opacity="0.9" />
+                        
+                        <!-- Internal frills and details -->
+                        <path d="M20,18 Q25,16 30,18 
+                                 M18,22 Q25,20 32,22
+                                 M16,26 Q25,24 34,26
+                                 M18,30 Q25,28 32,30" 
+                              stroke="#ffffff" 
+                              stroke-width="0.5" 
+                              fill="none" 
+                              opacity="0.4" />
+                    </g>
+                    
+                    <!-- Jellyfish Tentacles - Thin, flowing, irregular -->
+                    <g class="jellyfish-tentacle">
+                        <!-- Left side tentacles -->
+                        <path d="M18,32 Q15,38 13,45 Q12,52 14,58" 
+                              stroke="url(#tentacleGradient)" 
+                              stroke-width="1.2" 
+                              fill="none" 
+                              opacity="0.8" />
+                        <path d="M20,32 Q18,40 16,48 Q15,53 17,60" 
+                              stroke="url(#tentacleGradient)" 
+                              stroke-width="1" 
+                              fill="none" 
+                              opacity="0.7" />
+                        <path d="M22,32 Q21,42 19,50 Q18,55 20,62" 
+                              stroke="url(#tentacleGradient)" 
+                              stroke-width="0.8" 
+                              fill="none" 
+                              opacity="0.6" />
+                        
+                        <!-- Right side tentacles -->
+                        <path d="M32,32 Q35,38 37,45 Q38,52 36,58" 
+                              stroke="url(#tentacleGradient)" 
+                              stroke-width="1.2" 
+                              fill="none" 
+                              opacity="0.8" />
+                        <path d="M30,32 Q32,40 34,48 Q35,53 33,60" 
+                              stroke="url(#tentacleGradient)" 
+                              stroke-width="1" 
+                              fill="none" 
+                              opacity="0.7" />
+                        <path d="M28,32 Q29,42 31,50 Q32,55 30,62" 
+                              stroke="url(#tentacleGradient)" 
+                              stroke-width="0.8" 
+                              fill="none" 
+                              opacity="0.6" />
+                        
+                        <!-- Center tentacles -->
+                        <path d="M25,32 Q25,42 25,52 Q25,58 25,65" 
+                              stroke="url(#tentacleGradient)" 
+                              stroke-width="1.5" 
+                              fill="none" 
+                              opacity="0.9" />
+                        <path d="M24,32 Q23,44 22,54 Q21,59 23,66" 
+                              stroke="url(#tentacleGradient)" 
+                              stroke-width="1" 
+                              fill="none" 
+                              opacity="0.7" />
+                        <path d="M26,32 Q27,44 28,54 Q29,59 27,66" 
+                              stroke="url(#tentacleGradient)" 
+                              stroke-width="1" 
+                              fill="none" 
+                              opacity="0.7" />
+                    </g>
+                    
+                    <!-- Subtle bioluminescent spots -->
+                    <circle cx="22" cy="22" r="0.8" fill="#00bcd4" opacity="0.3" />
+                    <circle cx="28" cy="25" r="0.6" fill="#00bcd4" opacity="0.4" />
+                    <circle cx="20" cy="28" r="0.7" fill="#00bcd4" opacity="0.3" />
+                </svg>
+            </div>
+        </div>
+        
+        <!-- Ocean Background -->
+        <div class="ocean-background">
+            <div class="floating-bubbles" id="bubbles"></div>
+            <div class="ocean-wave-bg"></div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="stats-background">
+            <canvas class="graph-canvas" id="graphCanvas"></canvas>
+        </div>
+        <div class="container stats-content">
+            <h2 class="section-title" style="color: white;">Our Impact</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <span class="stat-number" id="stat1">0</span>
+                    <span class="stat-label">ARGO Floats Monitored</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-number" id="stat2">0</span>
+                    <span class="stat-label">Data Points Analyzed</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3>AI-Powered Analysis</h3>
+                    <p>Leverage advanced AI algorithms to analyze complex oceanographic data from ARGO floats with unprecedented accuracy.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3>Ultra-Fast Processing</h3>
+                    <p>Experience lightning-fast data processing and visualization with Groq LLM integration for real-time insights.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Interactive Visualizations</h3>
+                    <p>Explore ocean data through dynamic, interactive visualizations that make complex information easily understandable.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-database"></i>
+                    </div>
+                    <h3>ARGO Data Integration</h3>
+                    <p>Seamlessly access and analyze data from the global ARGO float network for comprehensive ocean monitoring.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team">
+        <div class="container">
+            <h2 class="section-title">Our Team</h2>
+            <div class="team-grid">
+                <div class="team-member">
+                    <div class="member-avatar">SP</div>
+                    <div class="member-info">
+                        <h3 class="member-name">Subahmita Pandit</h3>
+                        <p class="member-role">Frontend Developer</p>
+                        <p class="member-bio">Specializes in creating intuitive user interfaces and interactive data visualizations for ocean data.</p>
+                        <div class="social-links">
+                            <a href="https://www.linkedin.com/in/subhamita-pandit" target="_blank" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">TY</div>
+                    <div class="member-info">
+                        <h3 class="member-name">Tanisha Yeasmin</h3>
+                        <p class="member-role">UI/UX Designer</p>
+                        <p class="member-bio">Creates user-centered designs that make complex ocean data accessible and engaging for researchers.</p>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">HS</div>
+                    <div class="member-info">
+                        <h3 class="member-name">Himanshu Sharma</h3>
+                        <p class="member-role">Backend Engineer</p>
+                        <p class="member-bio">Develops robust server architecture and data processing pipelines for handling ARGO float data.</p>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">BP</div>
+                    <div class="member-info">
+                        <h3 class="member-name">Bibek Panda</h3>
+                        <p class="member-role">AI/ML Specialist</p>
+                        <p class="member-bio">Focuses on implementing Groq LLM integration and developing conversational AI for ocean data queries.</p>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">NC</div>
+                    <div class="member-info">
+                        <h3 class="member-name">Nikita Chanda</h3>
+                        <p class="member-role">Data Scientist</p>
+                        <p class="member-bio">Expert in oceanographic data analysis and machine learning algorithms for marine research applications.</p>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="team-member">
+                    <div class="member-avatar">SM</div>
+                    <div class="member-info">
+                        <h3 class="member-name">Santu Manna</h3>
+                        <p class="member-role">Project Manager</p>
+                        <p class="member-bio">Coordinates development efforts and ensures the platform meets the needs of ocean research communities.</p>
+                        <div class="social-links">
+                            <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                            <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <h2 class="section-title">About Floatchat</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <h3>Revolutionizing Ocean Data Discovery</h3>
+                    <p>Floatchat is an innovative AI-powered platform designed specifically for oceanographic data analysis. Our mission is to make complex ARGO float data accessible and actionable through advanced AI and intuitive visualization tools.</p>
+                    <p>By integrating ultra-fast Groq LLM technology, we enable researchers, scientists, and ocean enthusiasts to interact with ocean data in natural language, receiving instant insights and visual representations of complex ocean phenomena.</p>
+                    <p>Our platform transforms the way we understand and interact with ocean data, making it easier to discover patterns, track changes, and make informed decisions based on comprehensive ocean monitoring.</p>
+                </div>
+                <div class="about-visual">
+                    <video class="ocean-data-video" controls autoplay muted loop>
+                        <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-ocean-waves-coming-to-the-shore-1006-large.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="ocean-wave"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Data Discovery</h3>
+                    <p>Easily discover and access relevant ocean data from the global ARGO float network through intuitive search and filtering.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Advanced Analytics</h3>
+                    <p>Perform sophisticated analysis on ocean data with AI-powered tools that identify patterns and trends automatically.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3>Spatial Visualization</h3>
+                    <p>Visualize ocean data geographically with interactive maps that show temperature, salinity, and other parameters.</p>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Conversational Interface</h3>
+                    <p>Interact with ocean data using natural language queries and receive instant, AI-generated insights and visualizations.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Get In Touch</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Contact Information</h3>
+                    <div class="contact-details">
+                        <div class="contact-detail">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@floatchat.com</span>
+                        </div>
+                        <div class="contact-detail">
+                            <i class="fas fa-phone"></i>
+                            <span>+1 (555) 123-4567</span>
+                        </div>
+                        <div class="contact-detail">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Ocean Research Center, 123 Marine Drive, Coastal City</span>
+                        </div>
+                    </div>
+                    <p>We're always interested in hearing from researchers, institutions, and organizations working in oceanography and marine science.</p>
+                </div>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Your Name</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Your Email</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Your Message</label>
+                        <textarea id="message" class="form-control" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        <div class="nav-logo">
+                            <div class="logo-icon">
+                                <i class="fas fa-water"></i>
+                            </div>
+                            <h2>Floatchat</h2>
+                        </div>
+                    </div>
+                    <p>An AI-powered oceanographic data analysis platform for ARGO float data with ultra-fast Groq LLM integration and interactive visualizations.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Platform</h4>
+                    <ul class="footer-links">
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#">Pricing</a></li>
+                        <li><a href="#">Documentation</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Company</h4>
+                    <ul class="footer-links">
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#">Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul class="footer-links">
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Data Policy</a></li>
+                        <li><a href="#">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 Floatchat. All rights reserved. | AI-Powered Ocean Data Discovery and Visualization</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Enhanced animations and interactions
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navbar scroll effect
+            window.addEventListener('scroll', function() {
+                const navbar = document.querySelector('.navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+
+            // Create floating bubbles
+            function createBubbles() {
+                const bubblesContainer = document.getElementById('bubbles');
+                const bubbleCount = 15;
+                
+                for (let i = 0; i < bubbleCount; i++) {
+                    const bubble = document.createElement('div');
+                    bubble.classList.add('bubble');
+                    
+                    // Random size between 5 and 20px
+                    const size = Math.random() * 15 + 5;
+                    bubble.style.width = `${size}px`;
+                    bubble.style.height = `${size}px`;
+                    
+                    // Random position
+                    bubble.style.left = `${Math.random() * 100}%`;
+                    
+                    // Random animation delay
+                    bubble.style.animationDelay = `${Math.random() * 15}s`;
+                    
+                    // Random animation duration
+                    bubble.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                    
+                    bubblesContainer.appendChild(bubble);
+                }
+            }
+
+            // Animate stats counter
+            function animateStats() {
+                const stat1 = document.getElementById('stat1');
+                const stat2 = document.getElementById('stat2');
+                
+                const targetValues = [3850, 12500000];
+                const durations = [2000, 2500];
+                
+                function animateValue(element, start, end, duration) {
+                    let startTimestamp = null;
+                    const step = (timestamp) => {
+                        if (!startTimestamp) startTimestamp = timestamp;
+                        const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                        const value = Math.floor(progress * (end - start) + start);
+                        element.textContent = value.toLocaleString();
+                        if (progress < 1) {
+                            window.requestAnimationFrame(step);
+                        }
+                    };
+                    window.requestAnimationFrame(step);
+                }
+                
+                // Start animations when stats section is in view
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            animateValue(stat1, 0, targetValues[0], durations[0]);
+                            animateValue(stat2, 0, targetValues[1], durations[1]);
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                
+                observer.observe(document.querySelector('.stats'));
+            }
+
+            // Create animated line graph background
+            function createAnimatedGraph() {
+                const canvas = document.getElementById('graphCanvas');
+                const ctx = canvas.getContext('2d');
+                
+                // Set canvas size
+                function resizeCanvas() {
+                    canvas.width = canvas.parentElement.offsetWidth;
+                    canvas.height = canvas.parentElement.offsetHeight;
+                }
+                
+                resizeCanvas();
+                window.addEventListener('resize', resizeCanvas);
+                
+                // Graph data points
+                const dataPoints = [];
+                const pointCount = 50;
+                const maxValue = 100;
+                
+                // Initialize data points
+                for (let i = 0; i < pointCount; i++) {
+                    dataPoints.push(Math.random() * maxValue);
+                }
+                
+                // Animation variables
+                let animationId;
+                let time = 0;
+                
+                function drawGraph() {
+                    // Clear canvas
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    
+                    // Draw grid lines
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+                    ctx.lineWidth = 1;
+                    
+                    // Horizontal grid lines
+                    for (let i = 0; i <= 10; i++) {
+                        const y = (canvas.height / 10) * i;
+                        ctx.beginPath();
+                        ctx.moveTo(0, y);
+                        ctx.lineTo(canvas.width, y);
+                        ctx.stroke();
+                    }
+                    
+                    // Vertical grid lines
+                    for (let i = 0; i <= 10; i++) {
+                        const x = (canvas.width / 10) * i;
+                        ctx.beginPath();
+                        ctx.moveTo(x, 0);
+                        ctx.lineTo(x, canvas.height);
+                        ctx.stroke();
+                    }
+                    
+                    // Update data points for animation
+                    time += 0.02;
+                    for (let i = 0; i < dataPoints.length; i++) {
+                        // Add some noise and movement
+                        dataPoints[i] = Math.max(0, Math.min(maxValue, 
+                            dataPoints[i] + (Math.sin(time + i * 0.5) * 0.5) + (Math.random() - 0.5) * 0.3
+                        ));
+                    }
+                    
+                    // Draw the line graph
+                    ctx.beginPath();
+                    ctx.strokeStyle = 'rgba(255, 255, 255, 0.7)';
+                    ctx.lineWidth = 3;
+                    ctx.lineJoin = 'round';
+                    
+                    for (let i = 0; i < dataPoints.length; i++) {
+                        const x = (canvas.width / (dataPoints.length - 1)) * i;
+                        const y = canvas.height - (dataPoints[i] / maxValue) * canvas.height;
+                        
+                        if (i === 0) {
+                            ctx.moveTo(x, y);
+                        } else {
+                            ctx.lineTo(x, y);
+                        }
+                    }
+                    
+                    ctx.stroke();
+                    
+                    // Draw data points
+                    ctx.fillStyle = 'rgba(255, 255, 255, 0.9)';
+                    for (let i = 0; i < dataPoints.length; i += 2) {
+                        const x = (canvas.width / (dataPoints.length - 1)) * i;
+                        const y = canvas.height - (dataPoints[i] / maxValue) * canvas.height;
+                        
+                        ctx.beginPath();
+                        ctx.arc(x, y, 3, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                    
+                    // Continue animation
+                    animationId = requestAnimationFrame(drawGraph);
+                }
+                
+                // Start animation
+                drawGraph();
+            }
+
+            // Enhanced jellyfish animation
+            function animateJellyfish() {
+                const jellyfish = document.getElementById('jellyfish');
+                const aiTarget = document.getElementById('aiTarget');
+                
+                // Make sure jellyfish is visible
+                gsap.set(jellyfish, {
+                    opacity: 1,
+                    scale: 1
+                });
+
+                // Get AI element position
+                const aiRect = aiTarget.getBoundingClientRect();
+                const heroRect = document.querySelector('.hero').getBoundingClientRect();
+                
+                // Calculate final position (above the 'I' in AI)
+                const finalX = aiRect.left + aiRect.width - 15;
+                const finalY = aiRect.top - 20;
+                
+                // Gentle swimming path animation
+                const tl = gsap.timeline();
+                
+                // Start from outside the screen (bottom-left)
+                tl.fromTo(jellyfish, 
+                    {
+                        x: -100,
+                        y: window.innerHeight + 100,
+                        rotation: -5,
+                        scale: 1.1
+                    },
+                    {
+                        x: finalX - 150,
+                        y: finalY + 80,
+                        rotation: 3,
+                        duration: 2.5,
+                        ease: "power2.out"
+                    }
+                )
+                // Gentle curve toward the target
+                .to(jellyfish, {
+                    x: finalX - 60,
+                    y: finalY + 30,
+                    rotation: -1,
+                    duration: 1.8,
+                    ease: "sine.inOut"
+                })
+                // Float to the target
+                .to(jellyfish, {
+                    x: finalX,
+                    y: finalY,
+                    rotation: 0,
+                    scale: 1,
+                    duration: 1.5,
+                    ease: "back.out(1.7)"
+                })
+                // Subtle floating effect
+                .to(jellyfish, {
+                    y: finalY - 6,
+                    rotation: 1,
+                    duration: 3.5,
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut"
+                });
+            }
+
+            // Animate elements on scroll
+            function initScrollAnimations() {
+                // Animate feature cards
+                gsap.utils.toArray('.feature-card').forEach((card, i) => {
+                    gsap.fromTo(card, 
+                        { 
+                            opacity: 0, 
+                            y: 50 
+                        }, 
+                        { 
+                            opacity: 1, 
+                            y: 0, 
+                            duration: 0.8, 
+                            delay: i * 0.1,
+                            scrollTrigger: {
+                                trigger: card,
+                                start: "top 80%",
+                                end: "bottom 20%",
+                                toggleActions: "play none none reverse"
+                            }
+                        }
+                    );
+                });
+
+                // Animate service cards
+                gsap.utils.toArray('.service-card').forEach((card, i) => {
+                    gsap.fromTo(card, 
+                        { 
+                            opacity: 0, 
+                            y: 50 
+                        }, 
+                        { 
+                            opacity: 1, 
+                            y: 0, 
+                            duration: 0.8, 
+                            delay: i * 0.1,
+                            scrollTrigger: {
+                                trigger: card,
+                                start: "top 80%",
+                                end: "bottom 20%",
+                                toggleActions: "play none none reverse"
+                            }
+                        }
+                    );
+                });
+
+                // Animate team members
+                gsap.utils.toArray('.team-member').forEach((member, i) => {
+                    gsap.fromTo(member, 
+                        { 
+                            opacity: 0, 
+                            y: 50 
+                        }, 
+                        { 
+                            opacity: 1, 
+                            y: 0, 
+                            duration: 0.8, 
+                            delay: i * 0.1,
+                            scrollTrigger: {
+                                trigger: member,
+                                start: "top 80%",
+                                end: "bottom 20%",
+                                toggleActions: "play none none reverse"
+                            }
+                        }
+                    );
+                });
+            }
+
+            // Initialize everything
+            function init() {
+                createBubbles();
+                animateStats();
+                createAnimatedGraph();
+                setTimeout(animateJellyfish, 1000);
+                
+                // Wait for GSAP ScrollTrigger to be ready
+                gsap.registerPlugin(ScrollTrigger);
+                initScrollAnimations();
+            }
+
+            // Start when page loads
+            window.addEventListener('load', init);
+        });
+    </script>
 </body>
 </html>
